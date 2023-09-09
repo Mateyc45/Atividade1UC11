@@ -69,11 +69,18 @@ public class ProdutosDAO {
             return null;
         }
         return (ArrayList<ProdutosDTO>) listaProdutos;
-        }
     }
     
+    public void venderProduto(ProdutosDTO produto){
+        conn = new conectaDAO().connectDB();
+        String sql = "UPDATE produtos SET `status` = 'Vendido' where id = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, produto.getId());
+            stmt.execute();
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro no BD "+ e.getMessage());
+        }  
+    }
     
-    
-        
-
-
+}

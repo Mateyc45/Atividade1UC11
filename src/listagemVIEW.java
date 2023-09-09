@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -153,10 +154,12 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
-        
+        ProdutosDTO produto = new ProdutosDTO();
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        produto.setId(Integer.parseInt(id));
+        
+        produtosdao.venderProduto(produto);
         DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
         modelo.setNumRows(0);
         readJtable();
