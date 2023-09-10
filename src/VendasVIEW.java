@@ -1,3 +1,7 @@
+
+import java.sql.Connection;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,8 +16,27 @@ public class VendasVIEW extends javax.swing.JFrame {
     /**
      * Creates new form VendasVIEW
      */
+    private final conectaDAO conexao;
+    private final Connection conn;
     public VendasVIEW() {
+        this.conexao = new conectaDAO();
+        this.conn = this.conexao.connectDB();
         initComponents();
+        readJtable();
+    }
+    
+    public void readJtable(){
+        ProdutosDAO Produtos = new ProdutosDAO();
+        DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
+        
+        for(ProdutosDTO p: Produtos.listarProdutosVendidos()){
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getNome(),
+                p.getValor(),
+                p.getStatus()      
+            });
+        }
     }
 
     /**
